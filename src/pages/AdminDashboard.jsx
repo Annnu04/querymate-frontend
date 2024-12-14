@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UsersIcon, ChartBarIcon, ClipboardListIcon, CogIcon, CalendarIcon, BookOpenIcon } from '@heroicons/react/solid';
+import { UsersIcon, ChartBarIcon, ClipboardListIcon, CogIcon, CalendarIcon, BookOpenIcon, InformationCircleIcon } from '@heroicons/react/solid';
 import UserManagement from '../components/Tabs/UserManagement';
 import Analytics from '../components/Tabs/Analytics';
 import ActivityLogs from '../components/Tabs/ActivityLogs';
@@ -7,10 +7,11 @@ import Settings from '../components/Tabs/Settings';
 import ActiveWorkflows from '../components/Tabs/ActiveWorkflows';
 import Tasks from '../components/Tabs/TaskTab';
 import DeployedWorkflows from '../components/Tabs/DeployedWorkflows';
+import WorkflowCreator from '../components/Tabs/CreateWorkflow';
 
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState('user-management');
+  const [activeTab, setActiveTab] = useState('create');
 
   return (
     <div className="container mx-auto p-4 lg:flex">
@@ -18,6 +19,15 @@ const AdminDashboard = () => {
       <aside className="w-full h-auto lg:h-[95vh] lg:w-[20%] bg-white dark:bg-gray-800 shadow-lg p-6 rounded-lg">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Admin Dashboard</h2>
         <ul>
+        <li
+            className={`flex items-center mb-4 ${
+              activeTab === 'create' ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-400'
+            } hover:text-primary-700 dark:hover:text-primary-200 cursor-pointer`}
+            onClick={() => setActiveTab('create')}
+          >
+            <InformationCircleIcon className="w-5 h-5 mr-2" />
+            Create Workflows
+          </li>
           <li
             className={`flex items-center mb-4 ${
               activeTab === 'user-management' ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-400'
@@ -65,12 +75,12 @@ const AdminDashboard = () => {
           </li>
           {/* <li
             className={`flex items-center mb-4 ${
-              activeTab === 'deployed' ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-400'
+              activeTab === 'create' ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-400'
             } hover:text-primary-700 dark:hover:text-primary-200 cursor-pointer`}
-            onClick={() => setActiveTab('deployed')}
+            onClick={() => setActiveTab('create')}
           >
             <ClipboardListIcon className="w-5 h-5 mr-2" />
-            Deployed Workflows
+            Create Workflows
           </li> */}
           <li
             className={`flex items-center mb-4 ${
@@ -101,6 +111,7 @@ const AdminDashboard = () => {
         {activeTab === 'active-workflows' && <ActiveWorkflows />}
         {activeTab === 'tasks' && <Tasks />}
         {activeTab === 'deployed' && <DeployedWorkflows />}
+        {activeTab === 'create' && <WorkflowCreator />}
       </div>
     </div>
   );
