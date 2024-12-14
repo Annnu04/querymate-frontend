@@ -20,9 +20,9 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await signinApi(formData);
-      setMessage(`Welcome back, ${response.user.name}!`);
+      setMessage(`Welcome back, `);
       // Save token to local storage for authentication
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("token", response.data.token);
     } catch (error) {
       setMessage(`Error: ${error.response?.data?.message || error.message}`);
     }

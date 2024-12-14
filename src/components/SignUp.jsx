@@ -19,6 +19,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const response = await signUpApi(formData);
+      console.log("response",response)
       setMessage(`Success: ${response.message}`);
     } catch (error) {
       setMessage(`Error: ${error.response?.data?.message || error.message}`);
