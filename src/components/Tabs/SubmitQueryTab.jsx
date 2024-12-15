@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { HfInference } from "@huggingface/inference";
+import { submitQueryApi } from "../../services/api";
 
 const SubmitQueryTab = () => {
   const [query, setQuery] = useState(""); // State for user query input
@@ -22,17 +23,19 @@ const SubmitQueryTab = () => {
     setTypingAnswer("");
 
     try {
-      const chatCompletion = await client.chatCompletion({
-        model: "NousResearch/Hermes-3-Llama-3.1-8B",
-        messages: [{ role: "user", content: query }],
-        max_tokens: 500,
-      });
+      // const chatCompletion = await client.chatCompletion({
+      //   model: "NousResearch/Hermes-3-Llama-3.1-8B",
+      //   messages: [{ role: "user", content:  `Classify this query as "Automated" or "Escalated": ${query}` }],
+      //   max_tokens: 500,
+      // });
 
-      const generatedAnswer = chatCompletion.choices[0].message.content.trim();
-      setAnswer(generatedAnswer);
+      // const generatedAnswer = chatCompletion.choices[0].message.content.trim();
+      // setAnswer(generatedAnswer);
+      // console.log("chatCompletion",chatCompletion)
 
       // Start typing effect with the updated logic
-      startTypewritingEffect(generatedAnswer);
+      // startTypewritingEffect(generatedAnswer);
+     const response = await submitQueryApi(query)
     } catch (error) {
       console.error("Error fetching answer:", error.message);
       alert("An error occurred while fetching the response.");
